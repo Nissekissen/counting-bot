@@ -13,7 +13,7 @@ module.exports = {
                     .addChannelTypes(ChannelType.GuildText)
                     ),
     async execute(interaction) {
-        if (fs.existsSync(`../servers/${interaction.guildId}/`)) {
+        if (fs.existsSync(`./servers/${interaction.guildId}/`)) {
             await interaction.reply({ embeds: [new EmbedBuilder()
                                                     .setTitle("Setup")
                                                     .setDescription("Your server is already setup.")
@@ -21,9 +21,9 @@ module.exports = {
                                                     .setFooter({ text: "Made by REEEEEEEboi#6089" })
             ] })
         } else {
-            if (!fs.existsSync("../servers/")) { fs.mkdirSync("../servers") }
-            fs.mkdirSync(`../servers/${interaction.guildId}`);
-            let path = `../servers/${interaction.guildId}/`;
+            if (!fs.existsSync("./servers/")) { fs.mkdirSync("./servers") }
+            fs.mkdirSync(`./servers/${interaction.guildId}`);
+            let path = `./servers/${interaction.guildId}/`;
             writeToFile(path + "channel.txt", interaction.options.get('channel').value);
             writeToFile(path + "count.txt", "0");
             writeToFile(path + "lastMessage.txt", "");

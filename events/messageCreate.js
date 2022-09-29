@@ -5,7 +5,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(interaction) {
         if (interaction.member.id == interaction.client.application.id) return;
-        let path = `../servers/${interaction.guildId}`
+        let path = `./servers/${interaction.guildId}`
         if (!fs.existsSync(path)) return;
         if (interaction.channelId != readFile(path + "/channel.txt")) return;
         if (interaction.content == readFile(path + "/count.txt") && interaction.member.id != readFile(path + "/lastMessage.txt")) {

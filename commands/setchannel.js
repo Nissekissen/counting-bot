@@ -13,7 +13,7 @@ module.exports = {
                 .setRequired(true)
             ),
     async execute(interaction) {
-        let path = `../servers/${interaction.guildId}/`
+        let path = `./servers/${interaction.guildId}/`
         if (!fs.existsSync(path)) {
             await interaction.reply({ embeds: [new EmbedBuilder()
                 .setTitle("Set Channel")
