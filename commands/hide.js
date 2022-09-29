@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('hide')
         .setDescription('Makes the server invisible on the leaderboards.'),
-    descriptions: 'Makes the server invisible on the built-in leaderboards.',
+    description: 'Makes the server invisible on the built-in leaderboards.',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`;
         if (!fs.existsSync(path)) {
