@@ -8,6 +8,13 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`../commands/${file}`);
+	if (command.data.name == 'help')  {
+		for (const commandFile of commandFiles) {
+			const commandFileRequired = require(`../commands/${commandFile}`);
+			command.data.options[0].addChoices({ name: commandFileRequired.data.name, value: commandFileRequired.data.name })
+		}
+	}
+	console.log("test" + command.data.toJSON())
 	commands.push(command.data.toJSON());
 }
 

@@ -24,6 +24,15 @@ module.exports = {
             embed.setColor('#00aaff')
             embed.setFooter({ text: "Type /help <command> for more info on a command." })
             await interaction.reply({ embeds: [embed] })
+        } else {
+            const commandName = interaction.options.get('command').value;
+            const command = require(`./${commandName}.js`)
+            const embed = new EmbedBuilder()
+                .setTitle('Help')
+                .addFields({ name: `${command.data.name}`, value: command.description })
+                .setColor("#00aaff")
+                .setFooter({text: "Type /help <command> for more info on a command."})
+            await interaction.reply({embeds: [embed]})
         }
     }
 }
