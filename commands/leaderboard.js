@@ -23,13 +23,20 @@ module.exports = {
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
                 let count = readFile(path + "count.txt")
-                guild_data.push([parseInt(count), guild.id]);
+                let show = readFile(path + "show.txt")
+                guild_data.push([parseInt(count), guild.id, show]);
             }
         });
         guild_data.sort(sortFunction);
         const embed = new EmbedBuilder()
             .setTitle("Leaderboard")
             .setDescription("Here are the top servers with the highest count:");
+        for (let i = 0; i < guild_data.length; i++) {
+            if (guild_data[i][2] == "0") {
+                guild_data.splice(i, 1);
+                i--;
+            }
+        }
         
         if (guild_data.length < 5) {
             for (let i = 0; i < guild_data.length; i++) {
