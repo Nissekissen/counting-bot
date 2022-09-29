@@ -12,6 +12,7 @@ module.exports = {
                     .setRequired(true)
                     .addChannelTypes(ChannelType.GuildText)
                     ),
+    description: 'Setup the counting channel. Do `/setuphelp` for more information and help.',
     async execute(interaction) {
         if (fs.existsSync(`./servers/${interaction.guildId}/`)) {
             await interaction.reply({ embeds: [new EmbedBuilder()

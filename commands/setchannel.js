@@ -12,6 +12,7 @@ module.exports = {
                 .addChannelTypes(ChannelType.GuildText)
                 .setRequired(true)
             ),
+    description: 'Set/change the current counting channel.',
     async execute(interaction) {
         let path = `./servers/${interaction.guildId}/`
         if (!fs.existsSync(path)) {

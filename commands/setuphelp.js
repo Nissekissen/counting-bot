@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('setuphelp')
         .setDescription('Shows help for setting up the bot.'),
+    description: 'Help on setting up the counting channel.',
     async execute(interaction) {
         const embed = new EmbedBuilder()
             .setTitle('Setup Help')
