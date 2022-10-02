@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, Embed, IntegrationApplication } = require("discord.js");
 const fs = require("fs");
 const { readFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,8 +43,7 @@ module.exports = {
                 .setDescription('Here is a list of all available settings:')
                 .addFields({ name: 'Checkmark', value: `Change whether the bot should react to all messages sent in your counting channel. \nCurrently set to \`${settings.checkmark}\`` },
                     { name: 'Visible', value: `Change whether the server should be visible on the built-in leaderboards. \nCurrently set to \`${settings.show}\`` })
-                .setColor('#00aaff')
-                .setFooter({text:"Made by REEEEEEEboi#6089"})
+            embed.addData(embed, interaction)
             await interaction.reply({embeds:[embed]})
         } else if (interaction.options.getSubcommand() == 'checkmark') {
             if (!interaction.options.get('checkmark')) {
@@ -51,8 +51,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Settings - Visible')
                     .setDescription(`Change whether the bot should react to all messages sent in your counting channel. \nCurrently set to \`${settings.checkmark}\``)
-                    .setColor("#00aaff")
-                    .setFooter({text:"Made by REEEEEEEboi#6089"})
+                embed.addData(embed, interaction)
                 await interaction.reply({embeds:[embed]})
             } else {
                 const settings = JSON.parse(readFile(path + "settings.json"));
@@ -60,8 +59,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Settings - Visible')
                     .setDescription(`Change whether the bot should react to all messages sent in your counting channel. \nSetting is now set to \`${settings.checkmark}\``)
-                    .setColor("#00aaff")
-                    .setFooter({text:"Made by REEEEEEEboi#6089"})
+                embed.addData(embed, interaction)
                 await interaction.reply({embeds:[embed]})
             }
         } else if (interaction.options.getSubcommand() == 'visible') {
@@ -70,8 +68,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Settings - Visible')
                     .setDescription(`Change whether the bot should be visible on the built-in leaderboards. \nCurrently set to \`${settings.show}\``)
-                    .setColor("#00aaff")
-                    .setFooter({text:"Made by REEEEEEEboi#6089"})
+                embed.addData(embed, interaction)
                 await interaction.reply({embeds:[embed]})
             } else {
                 const settings = JSON.parse(readFile(path + "settings.json"));
@@ -79,8 +76,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Settings - Visible')
                     .setDescription(`Change whether the bot should be visible on the built-in leaderboards. \nSetting is now set to \`${settings.show}\``)
-                    .setColor("#00aaff")
-                    .setFooter({text:"Made by REEEEEEEboi#6089"})
+                embed.addData(embed, interaction)
                 await interaction.reply({embeds:[embed]})
             }
         }

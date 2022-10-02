@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require("discord.js");
 const fs = require("fs");
 const { writeToFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,12 +17,13 @@ module.exports = {
     usage: '/setuphelp <channel>',
     async execute(interaction) {
         if (fs.existsSync(`./servers/${interaction.guildId}/`)) {
-            await interaction.reply({ embeds: [new EmbedBuilder()
-                                                    .setTitle("Setup")
-                                                    .setDescription("Your server is already setup.")
-                                                    .setColor("#00aaff")
-                                                    .setFooter({ text: "Made by REEEEEEEboi#6089" })
-            ] })
+            const embed = new EmbedBuilder()
+                .setTitle("Setup")
+                .setDescription("Your server is already setup.")
+                .setColor("#00aaff")
+                .setFooter({ text: "Made by REEEEEEEboi#6089" })
+            embed.addData(embed, interaction)
+            await interaction.reply({ embeds: [embed] })
         } else {
             if (!fs.existsSync("./servers/")) { fs.mkdirSync("./servers") }
             fs.mkdirSync(`./servers/${interaction.guildId}`);
@@ -31,12 +33,13 @@ module.exports = {
             writeToFile(path + "lastMessage.txt", "");
             let settings = JSON.stringify({show: true, checkmark: true})
             writeToFile(path + "settings.json", settings)
-            await interaction.reply({ embeds: [new EmbedBuilder()
-                                                    .setTitle("Setup")
-                                                    .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)
-                                                    .setFooter({ text: "Made by REEEEEEEboi#6089" })
-                                                    .setColor("#00aaff")
-            ] })
+            const embed = new EmbedBuilder()
+                .setTitle("Setup")
+                .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)
+                .setFooter({ text: "Made by REEEEEEEboi#6089" })
+                .setColor("#00aaff")
+
+            await interaction.reply({ embeds: [embed] })
         }
     }
 } 

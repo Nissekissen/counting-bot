@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const fs = require("fs");
 const { readFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 function sortFunction(a, b) {
     if (a[0] === b[0]) {
@@ -50,8 +51,7 @@ module.exports = {
                 embed.addFields({ name: '1. ' + guild.id, value: guild_data[i][0].toString() });
             }
         }
-        embed.setColor("#00aaff")
-        embed.setFooter({ text: "Made by REEEEEEEboi#6089" })
+        embed.addData(embed, interaction)
         await interaction.reply({ embeds: [embed] })
     }
 }

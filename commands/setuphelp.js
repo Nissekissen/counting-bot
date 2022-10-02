@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,9 +17,7 @@ module.exports = {
                 { name: 'Step 3. Run the command.', value: "Run the command `/setup [CHANNEL]`. To change the counting channel, use `/setchannel [CHANNEL]`", inline: true },
                 { name: "What if it still doesn't work?", value: "Report any issues or bugs to REEEEEEEboi#6089. " }
             )
-            .setColor("#00aaff")
-            .setFooter({ text: 'Made by REEEEEEEboi#6089' })
-        
+        embed.addData(embed, interaction)
         await interaction.reply({ embeds: [embed] })
     }
 }

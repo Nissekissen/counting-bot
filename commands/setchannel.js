@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, ChannelType, EmbedBuilder } = require("discord.js");
 const fs = require("fs");
 const { writeToFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,11 +27,10 @@ module.exports = {
             return;
         }
         writeToFile(path + "channel.txt", interaction.options.get('channel').value)
-        await interaction.reply({ embeds: [new EmbedBuilder()
+        const embed = new EmbedBuilder()
             .setTitle("Setup")
             .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)
-            .setFooter({ text: "Made by REEEEEEEboi#6089" })
-            .setColor("#00aaff")
-        ] })
+        embed.addData(embed, interaction)
+        await interaction.reply({ embeds: [embed] })
     }
 }

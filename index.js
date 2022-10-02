@@ -1,9 +1,9 @@
 const fs = require('fs')
-const { Client, Collection, EmbedBuilder, GatewayIntentBits } = require('discord.js')
+const { Client, Collection, EmbedBuilder, GatewayIntentBits, ActivityType } = require('discord.js')
 const { token } = require('./config.json')
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages] })
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers...', type: ActivityType.Playing }] } })
 client.commands = new Collection()
 
 const loadCommands = () => {

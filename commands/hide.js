@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const fs = require("fs")
 const { readFile, writeToFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,8 +21,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
                 .setDescription("This server is already invisible on the leaderboards.")
-                .setColor('#00aaff')
-                .setFooter({text:"Made by REEEEEEEboi#6089"})
+            embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else {
             data.show = false;
@@ -29,8 +29,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
                 .setDescription("Server is now invisible on the leaderboards.")
-                .setColor('#00aaff')
-                .setFooter({text:"Made by REEEEEEEboi#6089"})
+            embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed], ephemeral: true })
         }
         

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { execute } = require("./setup");
 const fs = require("fs")
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,8 +23,7 @@ module.exports = {
                 const command = require(`./${file}`);
                 embed.addFields({ name: `\`/${command.data.name}\``, value: command.description, inline: true })            
             }
-            embed.setColor('#00aaff')
-            embed.setFooter({ text: "Type /help <command> for more info on a command." })
+            embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed] })
         } else {
             const commandName = interaction.options.get('command').value;
@@ -32,8 +32,7 @@ module.exports = {
                 .setTitle('Help')
                 .addFields({ name: `${command.data.name}`, value: command.description })
                 .addFields({ name: 'Usage:', value: `\`${command.usage}\`` })
-                .setColor("#00aaff")
-                .setFooter({text: "Type /help <command> for more info on a command."})
+            embed.addData(embed, interaction)
             await interaction.reply({embeds: [embed]})
         }
     }

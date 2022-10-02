@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, IntegrationApplication } = require("discord.js");
 const { readFile } = require("../utils/fileUtils");
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,8 +14,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle("Current Count")
             .setDescription("Current count: " + count)
-            .setColor('#00aaff')
-            .setFooter({text: "Made by REEEEEEEboi#6089"});
+        embed.addData(embed, interaction)
         await interaction.reply({ embeds: [embed], ephemeral: true });
     }
 }
