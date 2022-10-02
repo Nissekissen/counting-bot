@@ -12,7 +12,7 @@ module.exports = {
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`;
         if (!fs.existsSync(path)) {
-            await interaction.reply({content: "Your server is not setup yet. Use `/setup` to setup the bot.", ephemeral: true})
+            await interaction.reply({content: "Your server is not setup yet. Use </setup:907924863866507264> to setup the bot.", ephemeral: true})
             return;
         }
         let data = JSON.parse(readFile(path + "settings.json"))
