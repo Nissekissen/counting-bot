@@ -6,6 +6,7 @@ module.exports = {
         .setName('setuphelp')
         .setDescription('Shows help for setting up the bot.'),
     description: 'Help on setting up the counting channel.',
+    usage: '/setuphelp',
     async execute(interaction) {
         const embed = new EmbedBuilder()
             .setTitle('Setup Help')

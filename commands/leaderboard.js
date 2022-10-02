@@ -16,6 +16,7 @@ module.exports = {
         .setName("leaderboard")
         .setDescription("Shows the top 5 servers."),
     description: 'Shows the 5 servers with the highest current count.',
+    usage: '/leaderboard',
     async execute(interaction) {
         let guild_data = []
         interaction.client.guilds.cache.forEach(guild => {

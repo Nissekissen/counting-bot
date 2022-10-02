@@ -11,6 +11,7 @@ module.exports = {
                 .setDescription("The command to view (optional)")
                 .setRequired(false)),
     description: 'Shows this message.',
+    usage: '/help <command>',
     async execute(interaction) {
         if (!interaction.options.get('command')) {
             const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -30,6 +31,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Help')
                 .addFields({ name: `${command.data.name}`, value: command.description })
+                .addFields({ name: 'Usage:', value: `\`${command.usage}\`` })
                 .setColor("#00aaff")
                 .setFooter({text: "Type /help <command> for more info on a command."})
             await interaction.reply({embeds: [embed]})

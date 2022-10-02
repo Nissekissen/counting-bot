@@ -6,6 +6,7 @@ module.exports = {
         .setName('get')
         .setDescription('Returns the current count.'),
     description: 'Returns the current count.',
+    usage: '/get',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`
         const count = readFile(path + 'count.txt');

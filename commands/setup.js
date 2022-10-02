@@ -13,6 +13,7 @@ module.exports = {
                     .addChannelTypes(ChannelType.GuildText)
                     ),
     description: 'Setup the counting channel. Do `/setuphelp` for more information and help.',
+    usage: '/setuphelp <channel>',
     async execute(interaction) {
         if (fs.existsSync(`./servers/${interaction.guildId}/`)) {
             await interaction.reply({ embeds: [new EmbedBuilder()
@@ -28,7 +29,8 @@ module.exports = {
             writeToFile(path + "channel.txt", interaction.options.get('channel').value);
             writeToFile(path + "count.txt", "0");
             writeToFile(path + "lastMessage.txt", "");
-            writeToFile(path + "show.txt", "1")
+            let settings = JSON.stringify({show: true, checkmark: true})
+            writeToFile(path + "settings.json", settings)
             await interaction.reply({ embeds: [new EmbedBuilder()
                                                     .setTitle("Setup")
                                                     .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)

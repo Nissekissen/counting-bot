@@ -7,14 +7,16 @@ module.exports = {
         .setName('hide')
         .setDescription('Makes the server invisible on the leaderboards.'),
     description: 'Makes the server invisible on the built-in leaderboards.',
+    usage: '/hide',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`;
         if (!fs.existsSync(path)) {
             await interaction.reply({content: "Your server is not setup yet. Use `/setup` to setup the bot.", ephemeral: true})
             return;
         }
-        let show = readFile(path + "show.txt");
-        if (show == 0) {
+        let data = JSON.parse(readFile(path + "settings.json"))
+        let show = data.show;
+        if (!show) {
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
                 .setDescription("This server is already invisible on the leaderboards.")
@@ -22,7 +24,8 @@ module.exports = {
                 .setFooter({text:"Made by REEEEEEEboi#6089"})
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else {
-            writeToFile(path + "show.txt", "0")
+            data.show = false;
+            writeToFile(path + "settings.json", JSON.stringify(data));
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
                 .setDescription("Server is now invisible on the leaderboards.")
