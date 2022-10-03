@@ -14,6 +14,7 @@ module.exports = {
             count++;
             writeToFile(path + "/count.txt", count.toString())
             writeToFile(path + "/lastMessage.txt", interaction.member.id)
+            writeToFile(path + "/highscore.txt", count.toString());
         } else if (interaction.member.id == readFile(path + "/lastMessage.txt")) {
             interaction.reply("Same author, reseting back to 0.")
             interaction.react("❌")

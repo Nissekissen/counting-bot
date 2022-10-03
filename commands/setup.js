@@ -29,6 +29,7 @@ module.exports = {
             writeToFile(path + "count.txt", "0");
             writeToFile(path + "lastMessage.txt", "");
             writeToFile(path + "show.txt", "1")
+            writeToFile(path + "highscore.txt", "0");
             await interaction.reply({ embeds: [new EmbedBuilder()
                                                     .setTitle("Setup")
                                                     .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)
