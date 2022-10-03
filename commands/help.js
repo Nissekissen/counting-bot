@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { execute } = require("./setup");
 const fs = require("fs")
+require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,6 +12,7 @@ module.exports = {
                 .setDescription("The command to view (optional)")
                 .setRequired(false)),
     description: 'Shows this message.',
+    usage: '/help <command>',
     async execute(interaction) {
         if (!interaction.options.get('command')) {
             const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -21,8 +23,7 @@ module.exports = {
                 const command = require(`./${file}`);
                 embed.addFields({ name: `\`/${command.data.name}\``, value: command.description, inline: true })            
             }
-            embed.setColor('#00aaff')
-            embed.setFooter({ text: "Type /help <command> for more info on a command." })
+            embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed] })
         } else {
             const commandName = interaction.options.get('command').value;
@@ -30,8 +31,8 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Help')
                 .addFields({ name: `${command.data.name}`, value: command.description })
-                .setColor("#00aaff")
-                .setFooter({text: "Type /help <command> for more info on a command."})
+                .addFields({ name: 'Usage:', value: `\`${command.usage}\`` })
+            embed.addData(embed, interaction)
             await interaction.reply({embeds: [embed]})
         }
     }
