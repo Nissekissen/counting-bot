@@ -15,8 +15,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle("Server highscore")
             .setDescription(`The highscore for \`${interaction.guild.name}\` is currently \`${highscore}\``)
-            .setColor("#00aaff")
-            .setFooter({text:"Made by REEEEEEEboi#6089"})
+        embed.addData(embed, interaction)
         await interaction.reply({embeds: [embed]})
     }
 }

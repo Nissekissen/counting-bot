@@ -3,7 +3,7 @@ const { Client, Collection, EmbedBuilder, GatewayIntentBits, ActivityType } = re
 const { token } = require('./config.json')
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers...', type: ActivityType.Playing }] } })
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers', type: ActivityType.Playing }] } })
 client.commands = new Collection()
 
 const loadCommands = () => {

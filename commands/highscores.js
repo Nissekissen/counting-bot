@@ -3,7 +3,7 @@ const fs = require("fs");
 const { readFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
 
-function sortFunction(a, b) {
+const sortFunction = (a, b) => {
     if (a[0] === b[0]) {
         return 0;
     }
@@ -14,17 +14,17 @@ function sortFunction(a, b) {
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("leaderboard")
-        .setDescription("Shows the top 5 servers."),
-    description: 'Shows the 5 servers with the highest current count.',
-    usage: '/leaderboard',
+        .setName('highscores')
+        .setDescription('Shows a list of the top 5 server highscores.'),
+    description: 'Shows a list of the top 5 server highscores.',
+    usage: '/highscores',
     async execute(interaction) {
         let guild_data = []
         interaction.client.guilds.cache.forEach(guild => {
             console.log(guild.name);
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
-                let count = readFile(path + "count.txt")
+                let count = readFile(path + "highscore.txt")
                 let show = JSON.parse(readFile(path + "settings.json")).show;
                 guild_data.push([parseInt(count), guild.id, show]);
             }

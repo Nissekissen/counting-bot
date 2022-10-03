@@ -1,3 +1,4 @@
+const { ActivityType } = require("discord.js")
 const fs = require("fs")
 
 module.exports = {
@@ -5,6 +6,9 @@ module.exports = {
     once: true,
     execute(client) {
         console.log('Bot started')
-        client.user.setPresence({ activities: [{ name: 'people count...' , type: 'WATCHING'}], status: 'online' })
+        client.user.setPresence({
+            activities: [{ name: `with numbers`, type: ActivityType.Playing }],
+            status: 'online',
+          });
     }
 }
