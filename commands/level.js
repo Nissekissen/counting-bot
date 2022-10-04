@@ -3,6 +3,7 @@ const { readFile } = require("../utils/fileUtils");
 const ProgressBar = require("../utils/imageDrawer/progressbar");
 const UserAvatar = require("../utils/imageDrawer/userAvatar");
 const images = require('images');
+const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,12 +20,12 @@ module.exports = {
         const path = `./servers/${interaction.guildId}/`
         const data = JSON.parse(readFile(path + "scores.json"))
         let user;
-        if (!interaction.options.get('user')) {
+        if (!interaction.options.get('user')) { 
             user = data.users.find(x => x.id == interaction.member.id.toString())
         } else {
             user = data.users.find(x => x.id == interaction.options.get('user').value.toString())
         }
-        if (!user) {
+        if (!user) { // When either server isn't setup or user object doesn't exist
             const embed = new EmbedBuilder()
                 .setTitle('Level')
             embed.addData(embed, interaction)
@@ -37,33 +38,22 @@ module.exports = {
             return;
         }
         const userData = interaction.guild.members.cache.get(user.id).user
-        const Canvas = require('canvas');
-        const canvas = Canvas.createCanvas(256,128);
-        const ctx = canvas.getContext('2d');
+        const canvas = new CanvasBuilder(256, 128, "#011d45");
         const progressBar = new ProgressBar({
             x: 20,
-            y: 93,
+            y: 103,
             width: 216,
-            height: 25,
+            height: 15,
 
-        }, "#00aaff", user.score/(100 * (Math.pow(2, user.level) - 1)) * 100, ctx);
+        }, "#00aaff", user.score/(100 * (Math.pow(2, user.level) - 1)) * 100, canvas.ctx);
         progressBar.draw();
-        console.log(userData.displayAvatarURL({ extension: "jpg" }));
-        const userAvatar = new UserAvatar({x: 10, y: 10, width: 64, height: 64}, userData.displayAvatarURL({ extension: "jpg" }), ctx);
-        userAvatar.draw();
-        const image = canvas.toDataURL('image/png');
-        const sfbuff = new Buffer.from(image.split(",")[1], "base64");
-        const sfattach = new AttachmentBuilder(sfbuff, "output.png");
-        const embed = new EmbedBuilder()
-            .setTitle('Level - ' + userData.username)
-            .addFields({ name: `Level ${user.level.toString()}`,
-                value: `Total score: ${user.score.toString()}
-                Score needed for next level: ${(100 * (Math.pow(2, user.level) - 1)) - user.score}
-                Total messages: ${user.messages.toString()}`
-             })
-            .setThumbnail(userData.displayAvatarURL({ dynamic: true, size: 128 }))
-            
-        embed.addData(embed, interaction)
-        await interaction.reply({embeds:[embed], files: [sfattach]})
+        canvas.drawText(100, 30, "#fff", 15, userData.username);
+        canvas.drawText(100, 47, "#eee", 13, `Level ${user.level}`);
+        canvas.drawText(100, 65, "#bbb", 10, `Total score: ${user.score}`);
+        canvas.drawText(100, 80, "#bbb", 10, `Score to next level: ${(100 * (Math.pow(2, user.level) - 1)) - user.score}`);
+        canvas.drawText(100, 95, "#bbb", 10, `Total messages: ${user.messages.toString()}`);
+        
+        await canvas.addImage(userData.displayAvatarURL({ extension: "jpg" }), 20, 10, 64, 64, true);
+        await interaction.reply({files: [await canvas.getCanvas()]})
     }
 }

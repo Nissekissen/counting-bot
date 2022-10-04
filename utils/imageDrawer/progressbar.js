@@ -14,7 +14,7 @@ class ProgressBar {
   
   draw(){
     // Visualize -------
-    this.visualize();
+    
     // -----------------
     this.p = this.percentage * this.w;
     if(this.p <= this.h){
@@ -35,6 +35,8 @@ class ProgressBar {
     }
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
+
+    this.visualize();
   }
   
   visualize(){
@@ -42,6 +44,7 @@ class ProgressBar {
   }
 
   showWholeProgressBar(){
+    this.ctx.lineWidth = 2;
     this.ctx.beginPath();
     this.ctx.arc(this.h / 2 + this.x, this.h / 2 + this.y, this.h / 2, Math.PI / 2, 3 / 2 * Math.PI);
     this.ctx.lineTo(this.w - this.h + this.x, 0 + this.y);

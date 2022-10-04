@@ -9,6 +9,7 @@ module.exports = {
         if (interaction.member.id == interaction.client.application.id) return;
         let path = `./servers/${interaction.guildId}`
         if (!fs.existsSync(path)) return;
+        if (interaction.content.startsWith(";")) { return await interaction.reply({ content: "I now work with slash commands! Do /help for more information!", ephemeral: true }) }
         if (interaction.channelId != readFile(path + "/channel.txt")) return;
         const checkmark = JSON.parse(readFile(path + "/settings.json")).checkmark
         if (interaction.content == readFile(path + "/count.txt") && interaction.member.id != readFile(path + "/lastMessage.txt")) {

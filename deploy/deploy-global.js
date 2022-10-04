@@ -14,7 +14,6 @@ for (const file of commandFiles) {
 			command.data.options[0].addChoices({ name: commandFileRequired.data.name, value: commandFileRequired.data.name })
 		}
 	}
-	console.log("test" + command.data.toJSON())
 	commands.push(command.data.toJSON());
 }
 

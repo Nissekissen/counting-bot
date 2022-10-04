@@ -21,7 +21,6 @@ module.exports = {
     async execute(interaction) {
         let guild_data = []
         interaction.client.guilds.cache.forEach(guild => {
-            console.log(guild.name);
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
                 let count = readFile(path + "count.txt")
@@ -43,12 +42,12 @@ module.exports = {
         if (guild_data.length < 5) {
             for (let i = 0; i < guild_data.length; i++) {
                 let guild = interaction.client.guilds.cache.get(guild_data[i][1])
-                embed.addFields({ name: `${(i + 1).toString()}. ` + guild.name, value: guild_data[i][0].toString() });
+                embed.addFields({ name: `${(i + 1).toString()}. ${guild.name}`, value: guild_data[i][0].toString() });
             }
         } else {
             for (let i = 0; i < 5; i++) {
                 let guild = interaction.client.guilds.cache.get(guild_data[i][1])
-                embed.addFields({ name: `${(i + 1).toString()}. ` + guild.id, value: guild_data[i][0].toString() });
+                embed.addFields({ name: `${(i + 1).toString()}. ${guild.name}`, value: guild_data[i][0].toString() });
             }
         }
         embed.addData(embed, interaction)
