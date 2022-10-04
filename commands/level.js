@@ -1,5 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, Embed } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, MessageAttachment, AttachmentBuilder } = require("discord.js");
 const { readFile } = require("../utils/fileUtils");
+const ProgressBar = require("../utils/imageDrawer/progressbar");
+const UserAvatar = require("../utils/imageDrawer/userAvatar");
+const images = require('images');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,12 +37,33 @@ module.exports = {
             return;
         }
         const userData = interaction.guild.members.cache.get(user.id).user
+        const Canvas = require('canvas');
+        const canvas = Canvas.createCanvas(256,128);
+        const ctx = canvas.getContext('2d');
+        const progressBar = new ProgressBar({
+            x: 20,
+            y: 93,
+            width: 216,
+            height: 25,
 
+        }, "#00aaff", user.score/(100 * (Math.pow(2, user.level) - 1)) * 100, ctx);
+        progressBar.draw();
+        console.log(userData.displayAvatarURL({ extension: "jpg" }));
+        const userAvatar = new UserAvatar({x: 10, y: 10, width: 64, height: 64}, userData.displayAvatarURL({ extension: "jpg" }), ctx);
+        userAvatar.draw();
+        const image = canvas.toDataURL('image/png');
+        const sfbuff = new Buffer.from(image.split(",")[1], "base64");
+        const sfattach = new AttachmentBuilder(sfbuff, "output.png");
         const embed = new EmbedBuilder()
             .setTitle('Level - ' + userData.username)
-            .addFields({ name: `Level ${user.level.toString()}`, value: `Total score: ${user.score.toString()}\nTotal messages: ${user.messages.toString()}` })
+            .addFields({ name: `Level ${user.level.toString()}`,
+                value: `Total score: ${user.score.toString()}
+                Score needed for next level: ${(100 * (Math.pow(2, user.level) - 1)) - user.score}
+                Total messages: ${user.messages.toString()}`
+             })
             .setThumbnail(userData.displayAvatarURL({ dynamic: true, size: 128 }))
+            
         embed.addData(embed, interaction)
-        await interaction.reply({embeds:[embed]})
+        await interaction.reply({embeds:[embed], files: [sfattach]})
     }
 }
