@@ -4,10 +4,10 @@ require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('get')
+        .setName('score')
         .setDescription('Returns the current count.'),
     description: 'Returns the current count.',
-    usage: '/get',
+    usage: '/score',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`
         const count = readFile(path + 'count.txt');

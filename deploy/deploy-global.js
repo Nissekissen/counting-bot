@@ -4,13 +4,13 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, token } = require('../config.json');
 
 const commands = [];
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`../commands/${file}`);
+	const command = require(`../src/commands/${file}`);
 	if (command.data.name == 'help')  {
 		for (const commandFile of commandFiles) {
-			const commandFileRequired = require(`../commands/${commandFile}`);
+			const commandFileRequired = require(`../src/commands/${commandFile}`);
 			command.data.options[0].addChoices({ name: commandFileRequired.data.name, value: commandFileRequired.data.name })
 		}
 	}

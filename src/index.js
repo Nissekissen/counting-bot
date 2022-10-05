@@ -1,13 +1,13 @@
 const fs = require('fs')
 const { Client, Collection, EmbedBuilder, GatewayIntentBits, ActivityType } = require('discord.js')
-const { token } = require('./config.json')
+const { token } = require('../config.json')
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers', type: ActivityType.Playing }] } })
 client.commands = new Collection()
 
 const loadCommands = () => {
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('js'))
+    const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('js'))
 
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`)
@@ -16,7 +16,7 @@ const loadCommands = () => {
 }
 
 const loadEvents = () => {
-    const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('js'))
+    const eventFiles = fs.readdirSync('./src/events').filter(file => file.endsWith('js'))
 
     for (const file of eventFiles) {
         const event = require(`./events/${file}`)

@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { execute } = require("./setup");
 const fs = require("fs")
 require("../utils/embedData.js")
 
@@ -15,7 +14,7 @@ module.exports = {
     usage: '/help <command>',
     async execute(interaction) {
         if (!interaction.options.get('command')) {
-            const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
             const embed = new EmbedBuilder()
                 .setTitle('Help')
                 .setDescription('Here is a list of available commands:')

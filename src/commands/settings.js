@@ -103,7 +103,7 @@ module.exports = {
             const user = users.find(x => x.id == interaction.member.id.toString())
             const userIndex = users.indexOf(user);
                 
-            if (!user.settings) { user.settings = {levelcard: {theme: 'dark', color: '#011d45'}} }
+            if (!user.settings) { user.settings = {levelcard: {theme: 'dark', color: '#00aaff'}} }
             const settings = user.settings;
             if (!theme && !color) { // If no arguments are present
                 const embed = new EmbedBuilder()
