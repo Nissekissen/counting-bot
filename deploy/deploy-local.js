@@ -4,6 +4,7 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId, token } = require('../config.json');
 
 const commands = [];
+const commandsRaw = [];
 const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -15,6 +16,23 @@ for (const file of commandFiles) {
 		}
 	}
 	commands.push(command.data.toJSON());
+	commandsRaw.push(command);
+}
+
+const subcommandFolders = fs.readdirSync('./src/subcommands/');
+
+for (const subcommandFolder of subcommandFolders) {
+	const subcommandFiles = fs.readdirSync(`./src/subcommands/${subcommandFolder}`).filter(file => file.endsWith('js'));
+	const motherCommand = commandsRaw.find(command => command.data.name == subcommandFolder);
+	for (const subcommandFile of subcommandFiles) {
+		const data = require(`../src/subcommands/${subcommandFolder}/${subcommandFile}`);
+		motherCommand.data = data.register(motherCommand.data);
+	}
+	
+	let motherCommandData = motherCommand.data.toJSON();
+	const oldCommandIndex = commands.findIndex(command => command.name == subcommandFolder);
+	commands.splice(oldCommandIndex)
+	commands.push(motherCommandData);
 }
 
 const rest = new REST({ version: '9' }).setToken(token);

@@ -32,7 +32,7 @@ module.exports = {
             writeToFile(path + "count.txt", "0");
             writeToFile(path + "lastMessage.txt", "");
             writeToFile(path + "highscore.txt", "0")
-            let settings = JSON.stringify({show: true, checkmark: true})
+            let settings = JSON.stringify({visible: true, checkmark: true})
             writeToFile(path + "settings.json", settings)
             const embed = new EmbedBuilder()
                 .setTitle("Setup")

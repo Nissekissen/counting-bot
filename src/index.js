@@ -6,6 +6,8 @@ const { token } = require('../config.json')
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers', type: ActivityType.Playing }] } })
 client.commands = new Collection()
 
+client.subCommands = new Collection()
+
 const loadCommands = () => {
     const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('js'))
 

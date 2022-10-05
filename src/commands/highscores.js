@@ -25,8 +25,8 @@ module.exports = {
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
                 let count = readFile(path + "highscore.txt")
-                let show = JSON.parse(readFile(path + "settings.json")).show;
-                guild_data.push([parseInt(count), guild.id, show]);
+                let visible = JSON.parse(readFile(path + "settings.json")).visible;
+                guild_data.push([parseInt(count), guild.id, visible]);
             }
         });
         guild_data.sort(sortFunction);

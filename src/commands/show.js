@@ -16,15 +16,15 @@ module.exports = {
             return;
         }
         let data = JSON.parse(readFile(path + "settings.json"));
-        let show = data.show;
-        if (show) {
+        let visible = data.visible;
+        if (visible) {
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
                 .setDescription("This server is already visible on the leaderboards.")
             embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else {
-            data.show = true;
+            data.visible = true;
             writeToFile(path + "settings.json", JSON.stringify(data));
             const embed = new EmbedBuilder()
                 .setTitle("Show settings")
