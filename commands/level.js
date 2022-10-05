@@ -4,6 +4,16 @@ const ProgressBar = require("../utils/imageDrawer/progressbar");
 const UserAvatar = require("../utils/imageDrawer/userAvatar");
 const images = require('images');
 const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
+const fs = require("fs")
+
+function sortFunction(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,7 +28,9 @@ module.exports = {
     usage: '/level @username',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`
+        if (!fs.existsSync(path)) return await interaction.reply({ content: "This server isn't setup yet! Use /setuphelp for more info", ephemeral: true });
         const data = JSON.parse(readFile(path + "scores.json"))
+        data.users.sort(sortFunction);
         let user;
         if (!interaction.options.get('user')) { 
             user = data.users.find(x => x.id == interaction.member.id.toString())
@@ -38,7 +50,7 @@ module.exports = {
             return;
         }
         const userData = interaction.guild.members.cache.get(user.id).user
-        const canvas = new CanvasBuilder(256, 128, "#011d45");
+        const canvas = new CanvasBuilder(256, 143, "#011d45", "#36393f");
         const progressBar = new ProgressBar({
             x: 20,
             y: 103,
@@ -49,10 +61,12 @@ module.exports = {
         progressBar.draw();
         canvas.drawText(100, 30, "#fff", 15, userData.username);
         canvas.drawText(100, 47, "#eee", 13, `Level ${user.level}`);
-        canvas.drawText(100, 65, "#bbb", 10, `Total score: ${user.score}`);
-        canvas.drawText(100, 80, "#bbb", 10, `Score to next level: ${(100 * (Math.pow(2, user.level) - 1)) - user.score}`);
-        canvas.drawText(100, 95, "#bbb", 10, `Total messages: ${user.messages.toString()}`);
-        
+        canvas.drawText(100, 65, "#bbb", 10, `Total score: ${user.score} / ${(100 * (Math.pow(2, user.level) - 1)).toString()}`);
+        canvas.drawText(100, 80, "#bbb", 10, `Total messages: ${user.messages.toString()}`);
+        canvas.drawText(100, 95, "#bbb", 10, `Server rank: #${(data.users.indexOf(user)+1).toString()} of ${data.users.length.toString()}`);
+        canvas.drawText(20, 133, "#bbb", 10, (100 * (Math.pow(2, user.level-1) - 1)).toString())
+        canvas.drawText(220, 133, "#bbb", 10, (100 * (Math.pow(2, user.level) - 1)).toString())
+
         await canvas.addImage(userData.displayAvatarURL({ extension: "jpg" }), 20, 10, 64, 64, true);
         await interaction.reply({files: [await canvas.getCanvas()]})
     }

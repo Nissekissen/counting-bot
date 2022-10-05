@@ -30,6 +30,16 @@ module.exports = {
                         .setRequired(false)
                         .addChoices({ name: 'True', value: 'true'}, { name: 'False', value: 'false' })
                 )
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName('levelcard')
+                .setDescription('Change the appearence of the level card.')
+                .addStringOption(option => 
+                    option.setName('theme')
+                        .setDescription('Change the theme of the level card.')
+                        .setRequired(false)
+                        .addChoices({ name: 'Light', value: 'light' }, { name: 'Dark', value: 'dark' })
+                )  
         ),
     description: 'Settings for your server.',
     usage: '/settings [view|checkmark|visible] [true|false]',
@@ -76,6 +86,23 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Settings - Visible')
                     .setDescription(`Change whether the bot should be visible on the built-in leaderboards. \nSetting is now set to \`${settings.show}\``)
+                embed.addData(embed, interaction)
+                await interaction.reply({embeds:[embed]})
+            }
+        } else if (interaction.options.getSubcommand() == 'levelcard') {
+            const theme = interaction.options.get('theme');
+            const color = interaction.options.get('color');
+            if (!theme && !color) {
+                const users = JSON.parse(readFile(path + "scores.json")).users;
+                const user = users.find(x => x.id == interaction.member.id.toString())
+                
+                if (!user.settings) { user.settings = {levelcard: {theme: 'dark', color: '#011d45'}} }
+                const settings = user.settings;
+                const embed = new EmbedBuilder()
+                    .setTitle('Settings - Levelcard')
+                    .setDescription(`Change the appearence of your level card.
+                    Theme: ${settings.levelcard.theme}
+                    Color: ${settings.levelcard.color}`)
                 embed.addData(embed, interaction)
                 await interaction.reply({embeds:[embed]})
             }
