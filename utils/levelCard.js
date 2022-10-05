@@ -7,7 +7,7 @@ module.exports = {
     async generate(user, userData, data, settings) {
         let colorThemes = {
             dark:  { background: "#36393f", border: "#00aaff", text: { main: "#fff", under: "#eee", par: "#bbb" } },
-            light: { background: "#fff", border: "#00aaff", text: { main: "#000", under: "#111", par: "#444" } }
+            light: { background: "#fff", border: "#00aaff", text: { main: "#000", under: "#111", par: "#333" } }
         }
         let colors = colorThemes.dark;
         console.log(settings);
