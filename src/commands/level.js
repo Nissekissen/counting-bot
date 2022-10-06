@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, MessageAttachment, AttachmentBuilder } = require("discord.js");
-const { readFile } = require("../utils/fileUtils");
+const { readFile, writeToFile } = require("../utils/fileUtils");
 const ProgressBar = require("../utils/imageDrawer/progressbar");
 const UserAvatar = require("../utils/imageDrawer/userAvatar");
 const images = require('images');
@@ -36,22 +36,23 @@ module.exports = {
         if (!interaction.options.get('user')) { 
             user = data.users.find(x => x.id == interaction.member.id.toString())
         } else {
+            console.log("ID: " + interaction.options.get('user').value);
             user = data.users.find(x => x.id == interaction.options.get('user').value.toString())
         }
-        if (!user) { // When either server isn't setup or user object doesn't exist
-            const embed = new EmbedBuilder()
-                .setTitle('Level')
-            embed.addData(embed, interaction)
-            if (!interaction.options.get('user')) {
-                embed.setDescription(`You haven't counted yet!`)
-            } else {
-                embed.setDescription(`User <@${interaction.options.get('user').value.toString()}> hasn't counted`)
+        if (!user) {
+            user = {
+                id: interaction.options.get('user').value,
+                score: 0,
+                level: 1,
+                messages: 0
             }
-            await interaction.reply({embeds: [embed]})
-            return;
+            if (!interaction.options.get('user')) {
+                user.id = interaction.member.id;
+            }
+            data.users.push(user);
         }
+        writeToFile(path + "scores.json", JSON.stringify(data));
         const userData = interaction.guild.members.cache.get(user.id).user
-        console.log(user);
         const imageCanvas = levelCard.generate(user, userData, data, user.settings);
         await interaction.reply({files: [await imageCanvas]})
     }

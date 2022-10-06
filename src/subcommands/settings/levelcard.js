@@ -26,26 +26,32 @@ module.exports = {
     async execute(interaction, path) {
         const theme = interaction.options.get('theme');
         const color = interaction.options.get('color');
-        const data = JSON.parse(readFile(path + "scores.json"))
+        let data = JSON.parse(readFile(path + "scores.json"))
+        if (JSON.stringify(data) == "{}") { data = {users: []} };
         const users = data.users;
-        const user = users.find(x => x.id == interaction.member.id.toString())
-        const userIndex = users.indexOf(user);
+        console.log(data.users)
+        let user = data.users.find(x => x.id == interaction.member.id.toString())
+        if (!user) {
+            user = {
+                id: interaction.member.id,
+                score: 0,
+                level: 1,
+                messages: 0
+            }
+        }
+        const userIndex = users.findIndex(x => x.id == interaction.member.id.toString());
         
         if (!user.settings) { user.settings = {levelcard: {theme: 'dark', color: '#00aaff'}} }
         const settings = user.settings;
+        const embed = new EmbedBuilder()
+            .setTitle('Settings - Levelcard')
+        let description = 'Change the appearence of your level card.'
+        embed.addData(embed, interaction)
+        const userData = interaction.guild.members.cache.get(user.id).user;
         if (!theme && !color) { // If no arguments are present
-            const embed = new EmbedBuilder()
-                .setTitle('Settings - Levelcard')
-                .setDescription(`Change the appearence of your level card.
-                Theme: \`${settings.levelcard.theme}\`
-                Color: \`${settings.levelcard.color}\``)
-            embed.addData(embed, interaction)
-            await interaction.reply({embeds:[embed]})
+            description += `\nTheme: \`${settings.levelcard.theme}\`
+                Color: \`${settings.levelcard.color}\``
         } else {
-            const embed = new EmbedBuilder()
-                .setTitle('Settings - Levelcard')
-            embed.addData(embed, interaction)
-            let description = 'Change the appearence of your level card.'
             if (theme != undefined) {
                 settings.levelcard.theme = theme.value;
                 description = description + `\nLevelcard theme is now set to \`${theme.value}\``
@@ -58,16 +64,13 @@ module.exports = {
                     description = description + `\nInvalid color code. Hex code needed.`
                 }
             }
-            embed.setDescription(description);
-            const userData = interaction.guild.members.cache.get(user.id).user
-            console.log(settings)
-
             user.settings = settings;
             users[userIndex] = user;
             data.users = users;
             writeToFile(path + "scores.json", JSON.stringify(data));
-            const imageCanvas = levelCard.generate(user, userData, data, settings);
-            await interaction.reply({embeds:[embed], files: [await imageCanvas]});
         }
+        embed.setDescription(description);
+        const imageCanvas = levelCard.generate(user, userData, data, settings);
+        await interaction.reply({embeds:[embed], files: [await imageCanvas]});
     }
 }
