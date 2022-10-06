@@ -28,7 +28,6 @@ for (const subcommandFolder of subcommandFolders) {
 		const data = require(`../src/subcommands/${subcommandFolder}/${subcommandFile}`);
 		motherCommand.data = data.register(motherCommand.data);
 	}
-	
 	let motherCommandData = motherCommand.data.toJSON();
 	const oldCommandIndex = commands.findIndex(command => command.name == subcommandFolder);
 	commands.splice(oldCommandIndex)

@@ -6,15 +6,7 @@ const images = require('images');
 const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
 const fs = require("fs");
 const levelCard = require("../utils/levelCard");
-
-function sortFunction(a, b) {
-    if (a[0] === b[0]) {
-        return 0;
-    }
-    else {
-        return (a[0] < b[0]) ? -1 : 1;
-    }
-}
+const sort = require('../utils/sort');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,7 +23,7 @@ module.exports = {
         const path = `./servers/${interaction.guildId}/`
         if (!fs.existsSync(path)) return await interaction.reply({ content: "This server isn't setup yet! Use /setuphelp for more info", ephemeral: true });
         const data = JSON.parse(readFile(path + "scores.json"))
-        data.users.sort(sortFunction);
+        data.users.sort(sort);
         let user;
         if (!interaction.options.get('user')) { 
             user = data.users.find(x => x.id == interaction.member.id.toString())

@@ -2,15 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const fs = require("fs");
 const { readFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
-
-function sortFunction(a, b) {
-    if (a[0] === b[0]) {
-        return 0;
-    }
-    else {
-        return (a[0] < b[0]) ? -1 : 1;
-    }
-}
+const sort = require('../utils/sort')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,7 +20,7 @@ module.exports = {
                 guild_data.push([parseInt(count), guild.id, visible]);
             }
         });
-        guild_data.sort(sortFunction);
+        guild_data.sort(sort);
         const embed = new EmbedBuilder()
             .setTitle("Leaderboard")
             .setDescription("Here are the top servers with the highest count:");
