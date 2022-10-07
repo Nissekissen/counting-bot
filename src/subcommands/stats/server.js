@@ -33,6 +33,11 @@ module.exports = {
         }
         const rank = guild_data.findIndex(x => x[1] == interaction.guildId.toString()) + 1
         const icon = interaction.guild.iconURL();
+        const users = JSON.parse(readFile(path + 'scores.json')).users;
+        let totalMessages = 0;
+        users.forEach(user => {
+            totalMessages += parseInt(user.messages);
+        })
         console.log(icon)
         const embed = new EmbedBuilder()
             .setTitle('Server stats - ' + interaction.guild.name)
@@ -40,7 +45,8 @@ module.exports = {
             .addFields(
                 { name: `Current score: ${count}`, value: '\u200b', inline: true },
                 { name: `Highscore: ${highscore}`, value: '\u200b', inline: true },
-                { name: `Server rank: #${rank}`, value: '\u200b', inline: false }
+                { name: `Server rank: #${rank}`, value: '\u200b', inline: true },
+                { name: `Messages sent: ${totalMessages}`, value: '\u200b', inline: true }
                 )
         embed.addData(embed, interaction)
         await interaction.reply({embeds: [embed]})
