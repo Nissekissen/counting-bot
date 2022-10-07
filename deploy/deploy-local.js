@@ -2,7 +2,6 @@ const fs = require('node:fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId, token } = require('../config.json');
-const { command } = require('../src/subcommands/stats/server');
 
 const commands = [];
 const commandsRaw = [];
@@ -33,10 +32,6 @@ for (const subcommandFolder of subcommandFolders) {
 	const oldCommandIndex = commands.findIndex(command => command.name == subcommandFolder);
 	if (oldCommandIndex != -1) commands.splice(oldCommandIndex)
 	commands.push(motherCommandData);
-}
-
-for (const command of commands) {
-	if (commands.filter(x => x.name == command.name).length > 1) commands.splice(commands.findIndex(x => x.name == command.name));
 }
 
 const rest = new REST({ version: '9' }).setToken(token);
