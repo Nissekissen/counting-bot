@@ -34,7 +34,7 @@ module.exports = {
             writeToFile(path + "highscore.txt", "0")
             let settings = JSON.stringify({visible: true, checkmark: true})
             writeToFile(path + "settings.json", settings)
-            writeToFile(path + "scores.json", '{}');
+            writeToFile(path + "scores.json", '{users: []}');
             const embed = new EmbedBuilder()
                 .setTitle("Setup")
                 .setDescription(`Successfully set \`#${interaction.client.channels.cache.get(interaction.options.get('channel').value).name}\` as the counting channel.`)

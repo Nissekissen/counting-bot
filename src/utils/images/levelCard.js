@@ -1,7 +1,7 @@
-const ProgressBar = require("../utils/imageDrawer/progressbar");
-const UserAvatar = require("../utils/imageDrawer/userAvatar");
+const ProgressBar = require("../imageDrawer/progressbar");
+const UserAvatar = require("../imageDrawer/userAvatar");
 const images = require('images');
-const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
+const CanvasBuilder = require("../imageDrawer/canvasBuilder");
 
 module.exports = {
     async generate(user, userData, data, settings) {
@@ -10,7 +10,6 @@ module.exports = {
             light: { background: "#fff", border: "#00aaff", text: { main: "#000", under: "#111", par: "#333" } }
         }
         let colors = colorThemes.dark;
-        console.log(settings);
         if (settings) {
             if (settings.levelcard.theme == 'light') {
                 colors = colorThemes.light;

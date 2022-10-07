@@ -5,7 +5,7 @@ const UserAvatar = require("../utils/imageDrawer/userAvatar");
 const images = require('images');
 const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
 const fs = require("fs");
-const levelCard = require("../utils/levelCard");
+const levelCard = require("../utils/images/levelCard");
 const sort = require('../utils/sort');
 
 module.exports = {

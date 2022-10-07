@@ -40,7 +40,7 @@ module.exports = {
             .addFields(
                 { name: `Current score: ${count}`, value: '\u200b', inline: true },
                 { name: `Highscore: ${highscore}`, value: '\u200b', inline: true },
-                { name: `Server rank: ${rank}`, value: '\u200b', inline: false }
+                { name: `Server rank: #${rank}`, value: '\u200b', inline: false }
                 )
         embed.addData(embed, interaction)
         await interaction.reply({embeds: [embed]})

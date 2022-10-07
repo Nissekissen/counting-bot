@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, Embed, IntegrationApplication } = req
 const fs = require("fs");
 const { readFile, writeToFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
-const levelCard = require("../utils/levelCard");
+const levelCard = require("../utils/images/levelCard");
 
 module.exports = {
     data: new SlashCommandBuilder()
