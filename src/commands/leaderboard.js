@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const fs = require("fs");
-const { readFile } = require("../utils/fileUtils");
+const { readFile, writeToFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
 const sort = require('../utils/sort')
 
@@ -15,6 +15,7 @@ module.exports = {
         interaction.client.guilds.cache.forEach(guild => {
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
+                if (!fs.existsSync(path + "settings.json")) writeToFile(path + "settings.json", JSON.stringify({visible: true, checkmark: true}));
                 let count = readFile(path + "count.txt")
                 let visible = JSON.parse(readFile(path + "settings.json")).visible;
                 guild_data.push([parseInt(count), guild.id, visible]);

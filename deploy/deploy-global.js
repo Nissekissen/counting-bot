@@ -26,13 +26,16 @@ for (const subcommandFolder of subcommandFolders) {
 	const motherCommand = commandsRaw.find(command => command.data.name == subcommandFolder);
 	for (const subcommandFile of subcommandFiles) {
 		const data = require(`../src/subcommands/${subcommandFolder}/${subcommandFile}`);
-		motherCommand.data = data.register(motherCommand.data);
+		data.register(motherCommand.data);
 	}
-	
 	let motherCommandData = motherCommand.data.toJSON();
 	const oldCommandIndex = commands.findIndex(command => command.name == subcommandFolder);
-	commands.splice(oldCommandIndex)
+	if (oldCommandIndex != -1) commands.splice(oldCommandIndex)
 	commands.push(motherCommandData);
+}
+
+for (const command of commands) {
+	if (commands.filter(x => x.name == command.name).length > 1) commands.splice(commands.findIndex(x => x.name == command.name));
 }
 
 const rest = new REST({ version: '9' }).setToken(token);

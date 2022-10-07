@@ -16,6 +16,7 @@ module.exports = {
             console.log(guild.name);
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
+                if (!fs.existsSync(path + "settings.json")) writeToFile(path + "settings.json", JSON.stringify({visible: true, checkmark: true}));
                 let count = readFile(path + "highscore.txt")
                 let visible = JSON.parse(readFile(path + "settings.json")).visible;
                 guild_data.push([parseInt(count), guild.id, visible]);
