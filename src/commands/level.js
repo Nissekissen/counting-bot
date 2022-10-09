@@ -16,7 +16,8 @@ module.exports = {
             option.setName('user')
                 .setDescription('The user you want to view.')
                 .setRequired(false)    
-        ),
+        )
+        .setDMPermission(false),
     description: 'View the level of a server member.',
     usage: '/level @username',
     async execute(interaction) {

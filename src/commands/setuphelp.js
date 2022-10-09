@@ -1,10 +1,12 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 require("../utils/embedData.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setuphelp')
-        .setDescription('Shows help for setting up the bot.'),
+        .setDescription('Shows help for setting up the bot.')
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     description: 'Help on setting up the counting channel.',
     usage: '/setuphelp',
     async execute(interaction) {

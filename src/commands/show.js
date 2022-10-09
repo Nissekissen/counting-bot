@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const { readFile, writeToFile } = require("../utils/fileUtils");
 const fs = require("fs")
 require("../utils/embedData.js")
@@ -6,7 +6,9 @@ require("../utils/embedData.js")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('show')
-        .setDescription('Makes the server visible on the leaderboards'),
+        .setDescription('Makes the server visible on the leaderboards')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false),
     description: 'Makes the server visible on the built-in leaderboards. This is set to true as a default.',
     usage: '/show',
     async execute(interaction) {

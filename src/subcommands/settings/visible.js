@@ -1,3 +1,5 @@
+const { PermissionFlagsBits } = require("discord.js");
+
 module.exports = {
     name: 'Visible',
     command: 'settings',
@@ -14,6 +16,7 @@ module.exports = {
         )
     },
     description: 'Change whether the server should be visible on the built-in leaderboards.',
+    permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
         const settings = JSON.parse(readFile(path + "settings.json"));
         const embed = new EmbedBuilder()

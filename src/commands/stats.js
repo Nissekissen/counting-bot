@@ -4,7 +4,8 @@ const fs = require('fs');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stats')
-        .setDescription('Shows user or server statistics.'),
+        .setDescription('Shows user or server statistics.')
+        .setDMPermission(false),
     description: 'Shows user or server statistics.',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`;

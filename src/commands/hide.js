@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const fs = require("fs")
 const { readFile, writeToFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
@@ -6,7 +6,9 @@ require("../utils/embedData.js")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('hide')
-        .setDescription('Makes the server invisible on the leaderboards.'),
+        .setDescription('Makes the server invisible on the leaderboards.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false),
     description: 'Makes the server invisible on the built-in leaderboards.',
     usage: '/hide',
     async execute(interaction) {

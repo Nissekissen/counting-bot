@@ -5,7 +5,8 @@ const { readFile } = require("../utils/fileUtils")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('highscore')
-        .setDescription('Shows the highest score ever reached on this server.'),
+        .setDescription('Shows the highest score ever reached on this server.')
+        .setDMPermission(false),
     description: 'Shows the highest score ever reached on this server.',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`

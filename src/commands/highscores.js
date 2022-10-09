@@ -7,7 +7,8 @@ const sort = require('../utils/sort')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('highscores')
-        .setDescription('Shows a list of the top 5 server highscores.'),
+        .setDescription('Shows a list of the top 5 server highscores.')
+        .setDMPermission(false),
     description: 'Shows a list of the top 5 server highscores.',
     usage: '/highscores',
     async execute(interaction) {

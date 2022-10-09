@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, ChannelType, PermissionFlagsBits } = require("discord.js");
 const fs = require("fs");
 const { writeToFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
@@ -12,7 +12,9 @@ module.exports = {
                     .setDescription('The counting channel')
                     .setRequired(true)
                     .addChannelTypes(ChannelType.GuildText)
-                    ),
+        )
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
     description: 'Setup the counting channel. Do `/setuphelp` for more information and help.',
     usage: '/setuphelp <channel>',
     async execute(interaction) {

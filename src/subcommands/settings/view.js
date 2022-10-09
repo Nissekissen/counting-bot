@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 require('../../utils/embedData')
 const { readFile } = require('../../utils/fileUtils')
 const checkmark = require('./checkmark')
@@ -15,6 +15,7 @@ module.exports = {
                 .setDescription('View all your settings.')
         )
     },
+    permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
         const settings = JSON.parse(readFile(path + "settings.json"));
         const subcommandSettingsFiles = fs.readdirSync('./src/subcommands/settings/')

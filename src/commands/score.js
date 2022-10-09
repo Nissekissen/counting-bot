@@ -5,7 +5,8 @@ require("../utils/embedData.js")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('score')
-        .setDescription('Returns the current count.'),
+        .setDescription('Returns the current count.')
+        .setDMPermission(false),
     description: 'Returns the current count.',
     usage: '/score',
     async execute(interaction) {

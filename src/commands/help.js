@@ -9,7 +9,8 @@ module.exports = {
         .addStringOption(option => 
             option.setName('command')
                 .setDescription("The command to view (optional)")
-                .setRequired(false)),
+                .setRequired(false))
+        .setDMPermission(false),
     description: 'Shows this message.',
     usage: '/help <command>',
     async execute(interaction) {

@@ -1,5 +1,5 @@
 const { writeToFile, readFile } = require("../../utils/fileUtils");
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js')
 
 module.exports = {
     name: 'Checkmark',
@@ -17,6 +17,7 @@ module.exports = {
         )
     },
     description: 'Change whether the bot should react to all messages sent in your counting channel.',
+    permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
         const settings = JSON.parse(readFile(path + "settings.json"));
         const embed = new EmbedBuilder()

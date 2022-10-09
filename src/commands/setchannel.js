@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChannelType, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, ChannelType, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const fs = require("fs");
 const { writeToFile } = require("../utils/fileUtils");
 require("../utils/embedData.js")
@@ -12,7 +12,9 @@ module.exports = {
                 .setDescription("The channel you want to change to.")
                 .addChannelTypes(ChannelType.GuildText)
                 .setRequired(true)
-            ),
+            )
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false),
     description: 'Set/change the current counting channel.',
     usage: '/setchannel <channel>',
     async execute(interaction) {

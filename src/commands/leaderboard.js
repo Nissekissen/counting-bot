@@ -7,7 +7,8 @@ const sort = require('../utils/sort')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("leaderboard")
-        .setDescription("Shows the top 5 servers."),
+        .setDescription("Shows the top 5 servers.")
+        .setDMPermission(false),
     description: 'Shows the 5 servers with the highest current count.',
     usage: '/leaderboard',
     async execute(interaction) {

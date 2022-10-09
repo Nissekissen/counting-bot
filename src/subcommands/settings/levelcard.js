@@ -1,5 +1,5 @@
 const { writeToFile, readFile } = require("../../utils/fileUtils");
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder, PermissionsBitField, PermissionFlagsBits } = require('discord.js')
 const levelCard = require('../../utils/images/levelCard')
 
 module.exports = {

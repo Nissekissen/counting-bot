@@ -14,7 +14,8 @@ function sortFunction(a, b) {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('levels')
-        .setDescription('Shows the top 5 people with the highest level in your server.'),
+        .setDescription('Shows the top 5 people with the highest level in your server.')
+        .setDMPermission(false),
     description: 'Shows the top 5 people with the highest level and score in your server.',
     usage: '/levels',
     async execute(interaction) {
