@@ -32,7 +32,7 @@ module.exports = {
             let path = `./servers/${interaction.guildId}/`;
             writeToFile(path + "channel.txt", interaction.options.get('channel').value);
             writeToFile(path + "count.txt", "0");
-            writeToFile(path + "lastMessage.txt", "");
+            writeToFile(path + "last_message.txt", "");
             writeToFile(path + "highscore.txt", "0")
             let settings = JSON.stringify({visible: true, checkmark: true})
             writeToFile(path + "settings.json", settings)

@@ -17,13 +17,13 @@ module.exports = {
             checkmark = JSON.parse(readFile(path + "/settings.json")).checkmark
         }
         if (!checkmark) writeToFile(path + "settings.json", JSON.stringify({visible: true, checkmark: true}));
-        if (interaction.content == readFile(path + "/count.txt") && interaction.member.id != readFile(path + "/lastMessage.txt")) {
+        if (interaction.content == readFile(path + "/count.txt") && interaction.member.id != readFile(path + "/last_message.txt")) {
             //Update count file
             if (checkmark) interaction.react('✅')
             let count = parseInt(readFile(path + "/count.txt"))
             count++;
             writeToFile(path + "/count.txt", count.toString())
-            writeToFile(path + "/lastMessage.txt", interaction.member.id)
+            writeToFile(path + "/last_message.txt", interaction.member.id)
             writeToFile(path + "/highscore.txt", count.toString());
 
             //Update score file
@@ -53,20 +53,20 @@ module.exports = {
             }
             writeToFile(path + "/scores.json", JSON.stringify(data))
             logger.log(`Counted in server "${interaction.guild.name}"`)
-        } else if (interaction.member.id == readFile(path + "/lastMessage.txt")) {
+        } else if (interaction.member.id == readFile(path + "/last_message.txt")) {
             interaction.reply("Same author, reseting back to 0.")
             if (checkmark) interaction.react("❌")
             let count = parseInt(readFile(path + "/count.txt"))
             count = 0;
             writeToFile(path + "/count.txt", count.toString())
-            writeToFile(path + "/lastMessage.txt", "")
+            writeToFile(path + "/last_message.txt", "")
         } else {
             interaction.reply("Wrong number, reseting back to 0.")
             if (checkmark) interaction.react("❌")
             let count = parseInt(readFile(path + "/count.txt"))
             count = 0;
             writeToFile(path + "/count.txt", count.toString())
-            writeToFile(path + "/lastMessage.txt", "")
+            writeToFile(path + "/last_message.txt", "")
         }
     }
 }

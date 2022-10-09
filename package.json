@@ -19,6 +19,7 @@
     "discord.js": "^14.4.0",
     "images": "^3.2.4",
     "nodemon": "^2.0.20",
+    "topgg-autoposter": "^2.0.1",
     "undici": "^5.11.0"
   }
 }

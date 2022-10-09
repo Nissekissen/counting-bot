@@ -1,5 +1,6 @@
 {
   "clientId": "BOT_ID",
   "guildId": "SERVER_ID",
-  "token": "BOT_TOKEN"
+  "token": "BOT_TOKEN",
+  "topgg_token": "TOPGG_TOKEN (Ignore if you are not using top.gg)"
 }

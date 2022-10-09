@@ -1,7 +1,8 @@
 const fs = require('fs')
 const { Client, Collection, EmbedBuilder, GatewayIntentBits, ActivityType } = require('discord.js')
-const { token } = require('../config.json')
-
+const { token, topgg_token } = require('../config.json')
+const { AutoPoster } = require('topgg-autoposter')
+const logger = require('./utils/logger')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers], presence: { activities: [{ name: 'with numbers', type: ActivityType.Playing }] } })
 client.commands = new Collection()
@@ -29,6 +30,16 @@ const loadEvents = () => {
         }
     }
 }
+
+//Part below is only if bot is using top.gg, comment out if it is not.
+
+const ap = AutoPoster(topgg_token, client);
+ap.on('posted', () => {
+    logger.log('Posted stats on Top.gg!');
+})
+ap.on('error', error => {
+    logger.log('Error while posting stats on Top.gg: ' + error);
+})
 
 loadCommands()
 loadEvents()
