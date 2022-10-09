@@ -121,7 +121,7 @@ Here is a list of the current features and commands:
 #### /help
 > Shows a list of available commands.
 
-> #### Legend: '<>' means required argument, '[]' means optional argument.
+Legend: '<>' means required argument, '[]' means optional argument.
 
 ## Any issues, questions or feature requests?
 
