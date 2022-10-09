@@ -23,11 +23,9 @@ module.exports = {
         const subcommandSettings = [];
         subcommandSettingsFiles.forEach(file => {
             const data = require('./' + file)
-            console.log(data.name)
             if (file == 'levelcard.js') subcommandSettings.push({ name: data.name, value: `${data.description}\nThis setting is user specific.` })
             else subcommandSettings.push({ name: data.name, value: `${data.description}\nCurrently set to \`${settings[data.name.toLowerCase()]}\`` })
         })
-        console.log(subcommandSettings);
         const embed = new EmbedBuilder()
             .setTitle('Settings')
             .setDescription('Here is a list of all available settings:')

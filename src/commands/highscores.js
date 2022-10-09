@@ -14,7 +14,6 @@ module.exports = {
     async execute(interaction) {
         let guild_data = []
         interaction.client.guilds.cache.forEach(guild => {
-            console.log(guild.name);
             let path = `./servers/${guild.id}/`
             if (fs.existsSync(path)) {
                 if (!fs.existsSync(path + "settings.json")) writeToFile(path + "settings.json", JSON.stringify({visible: true, checkmark: true}));

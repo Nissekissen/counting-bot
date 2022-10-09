@@ -1,4 +1,5 @@
-const fs = require("fs")
+const fs = require("fs");
+const logger = require("../utils/logger");
 
 module.exports = {
     name: 'guildDelete',
@@ -8,8 +9,8 @@ module.exports = {
         try {
             fs.rmSync(path)
           } catch (err) {
-            console.error(`Error while deleting ${path}.`)
+            logger.log(`Error while deleting ${path}.`)
           }
-        console.log("Left server " + guild.name)
+        logger.log("Left server " + guild.name)
     }
 }

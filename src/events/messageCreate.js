@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { parse } = require("path");
 const { readFile, writeToFile } = require("../utils/fileUtils");
+const logger = require("../utils/logger");
 const levelUp = require('./levelUp')
 
 module.exports = {
@@ -49,6 +50,7 @@ module.exports = {
                 data.users[index] = user;
             }
             writeToFile(path + "/scores.json", JSON.stringify(data))
+            logger.log(`Counted in server "${interaction.guild.name}"`)
         } else if (interaction.member.id == readFile(path + "/lastMessage.txt")) {
             interaction.reply("Same author, reseting back to 0.")
             if (checkmark) interaction.react("❌")

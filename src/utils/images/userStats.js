@@ -25,7 +25,6 @@ module.exports = {
         canvas.ctx.moveTo(97, 10);
         canvas.ctx.lineTo(97, 94);
         canvas.ctx.stroke();
-        console.log(userData.username);
 
         await canvas.addImage(userData.displayAvatarURL({ extension: "jpg" }), 20, 20, 64, 64, true);
         return canvas.getCanvas();

@@ -38,7 +38,6 @@ module.exports = {
         users.forEach(user => {
             totalMessages += parseInt(user.messages);
         })
-        console.log(icon)
         const embed = new EmbedBuilder()
             .setTitle('Server stats - ' + interaction.guild.name)
             .setThumbnail(interaction.guild.iconURL())

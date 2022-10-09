@@ -29,7 +29,6 @@ module.exports = {
         let data = JSON.parse(readFile(path + "scores.json"))
         if (JSON.stringify(data) == "{}") { data = {users: []} };
         const users = data.users;
-        console.log(data.users)
         let user = data.users.find(x => x.id == interaction.member.id.toString())
         if (!user) {
             user = {

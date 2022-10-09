@@ -29,7 +29,6 @@ module.exports = {
         if (!interaction.options.get('user')) { 
             user = data.users.find(x => x.id == interaction.member.id.toString())
         } else {
-            console.log("ID: " + interaction.options.get('user').value);
             user = data.users.find(x => x.id == interaction.options.get('user').value.toString())
         }
         if (!user) {
