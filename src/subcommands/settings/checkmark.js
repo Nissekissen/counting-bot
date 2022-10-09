@@ -1,5 +1,6 @@
 const { writeToFile, readFile } = require("../../utils/fileUtils");
 const { EmbedBuilder, PermissionFlagsBits } = require('discord.js')
+const fs = require('fs')
 
 module.exports = {
     name: 'Checkmark',
@@ -19,9 +20,12 @@ module.exports = {
     description: 'Change whether the bot should react to all messages sent in your counting channel.',
     permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
-        const settings = JSON.parse(readFile(path + "settings.json"));
+        let settings = {checkmark: true, visible: true};
+        if (fs.existsSync(path + "settings.json")) {
+            settings = JSON.parse(readFile(path + "settings.json"));
+        }
         const embed = new EmbedBuilder()
-            .setTitle('Settings - Visible')
+            .setTitle('Settings - Checkmark')
         let description = this.description;
         if (!interaction.options.get('checkmark')) {
             description = description + `\nCurrently set to \nCurrently set to \`${settings.checkmark}\``

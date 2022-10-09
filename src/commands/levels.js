@@ -1,15 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { readFile } = require("../utils/fileUtils");
-
-function sortFunction(a, b) {
-    if (a[0] === b[0]) {
-        return 0;
-    }
-    else {
-        return (a[0] < b[0]) ? -1 : 1;
-    }
-}
-
+const fs = require('fs')
+const sort = require('../utils/sort')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,12 +12,13 @@ module.exports = {
     usage: '/levels',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`;
-        const users = JSON.parse(readFile(path + "scores.json")).users;
+        let users = [];
+        if (fs.existsSync(path + "scores.json")) users = JSON.parse(readFile(path + "scores.json")).users;
         let user_data = []
         users.forEach(user => {
             user_data.push([user.score, user.level, user.id]);
         });
-        user_data.sort(sortFunction);
+        user_data.sort(sort);
         const embed = new EmbedBuilder()
             .setTitle('Top levels')
             .setDescription('Here are the top server members with the highest score:')

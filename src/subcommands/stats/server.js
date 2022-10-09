@@ -20,7 +20,8 @@ module.exports = {
             let serverPath = `./servers/${guild.id}/`
             if (fs.existsSync(serverPath)) {
                 let count = readFile(serverPath + "count.txt")
-                let visible = JSON.parse(readFile(serverPath + "settings.json")).visible;
+                let visible = true;
+                if (!fs.existsSync(serverPath + "settings.json")) visible = JSON.parse(readFile(serverPath + "settings.json")).visible;
                 guild_data.push([parseInt(count), guild.id, visible]);
             }
         });
@@ -33,7 +34,8 @@ module.exports = {
         }
         const rank = guild_data.findIndex(x => x[1] == interaction.guildId.toString()) + 1
         const icon = interaction.guild.iconURL();
-        const users = JSON.parse(readFile(path + 'scores.json')).users;
+        let users = [];
+        if (fs.existsSync(path + 'scores.json')) users = JSON.parse(readFile(path + 'scores.json')).users;
         let totalMessages = 0;
         users.forEach(user => {
             totalMessages += parseInt(user.messages);

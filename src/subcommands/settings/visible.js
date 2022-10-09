@@ -18,7 +18,10 @@ module.exports = {
     description: 'Change whether the server should be visible on the built-in leaderboards.',
     permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
-        const settings = JSON.parse(readFile(path + "settings.json"));
+        let settings = {checkmark: true, visible: true};
+        if (fs.existsSync(path + "settings.json")) {
+            settings = JSON.parse(readFile(path + "settings.json"));
+        }
         const embed = new EmbedBuilder()
             .setTitle('Settings - Visible')
         let description = this.description;

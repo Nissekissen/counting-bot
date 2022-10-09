@@ -1,6 +1,7 @@
 const { writeToFile, readFile } = require("../../utils/fileUtils");
 const { EmbedBuilder, PermissionsBitField, PermissionFlagsBits } = require('discord.js')
 const levelCard = require('../../utils/images/levelCard')
+const fs = require('fs')
 
 module.exports = {
     name: 'Levelcard',
@@ -26,7 +27,10 @@ module.exports = {
     async execute(interaction, path) {
         const theme = interaction.options.get('theme');
         const color = interaction.options.get('color');
-        let data = JSON.parse(readFile(path + "scores.json"))
+        let data = "{}"
+        if (fs.existsSync(path + "scores.json")) {
+            data = JSON.parse(readFile(path + "scores.json"))
+        }
         if (JSON.stringify(data) == "{}") { data = {users: []} };
         const users = data.users;
         let user = data.users.find(x => x.id == interaction.member.id.toString())

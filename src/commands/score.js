@@ -13,8 +13,8 @@ module.exports = {
         const path = `./servers/${interaction.guildId}/`
         const count = readFile(path + 'count.txt');
         const embed = new EmbedBuilder()
-            .setTitle("Current Count")
-            .setDescription("Current count: " + count)
+            .setTitle("Current Score")
+            .setDescription(`The highscore for \`${interaction.guild.name}\` is currently \`${count}\``)
         embed.addData(embed, interaction)
         await interaction.reply({ embeds: [embed], ephemeral: true });
     }

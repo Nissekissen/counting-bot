@@ -23,7 +23,8 @@ module.exports = {
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`
         if (!fs.existsSync(path)) return await interaction.reply({ content: "This server isn't setup yet! Use /setuphelp for more info", ephemeral: true });
-        const data = JSON.parse(readFile(path + "scores.json"))
+        let data = {users: []}
+        if (fs.existsSync(path + "scores.json")) data = JSON.parse(readFile(path + "scores.json"))
         data.users.sort(sort);
         let user;
         if (!interaction.options.get('user')) { 
@@ -33,13 +34,13 @@ module.exports = {
         }
         if (!user) {
             user = {
-                id: interaction.options.get('user').value,
+                id: interaction.member.id,
                 score: 0,
                 level: 1,
                 messages: 0
             }
-            if (!interaction.options.get('user')) {
-                user.id = interaction.member.id;
+            if (interaction.options.get('user')) {
+                user.id = interaction.options.get('user').value;
             }
             data.users.push(user);
         }

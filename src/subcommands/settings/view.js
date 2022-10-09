@@ -17,7 +17,10 @@ module.exports = {
     },
     permissions: [PermissionFlagsBits.ManageGuild],
     async execute(interaction, path) {
-        const settings = JSON.parse(readFile(path + "settings.json"));
+        let settings = {checkmark: true, visible: true};
+        if (fs.existsSync(path + "settings.json")) {
+            settings = JSON.parse(readFile(path + "settings.json"));
+        }
         const subcommandSettingsFiles = fs.readdirSync('./src/subcommands/settings/')
             .filter(file => file.endsWith('js') && file != 'view.js');
         const subcommandSettings = [];

@@ -30,7 +30,7 @@ for (const subcommandFolder of subcommandFolders) {
 	}
 	let motherCommandData = motherCommand.data.toJSON();
 	const oldCommandIndex = commands.findIndex(command => command.name == subcommandFolder);
-	if (oldCommandIndex != -1) commands.splice(oldCommandIndex)
+	if (oldCommandIndex != -1) commands.splice(oldCommandIndex, 1)
 	commands.push(motherCommandData);
 }
 

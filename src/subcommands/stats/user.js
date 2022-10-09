@@ -1,5 +1,6 @@
 const { readFile } = require("../../utils/fileUtils")
 const userStats = require("../../utils/images/userStats")
+const fs = require('fs')
 
 module.exports = {
     command: 'stats',
@@ -11,7 +12,8 @@ module.exports = {
     },
     description: 'Shows stats about this server.',
     async execute(interaction, path) {
-        const data = JSON.parse(readFile(path + "scores.json"))
+        let data = {users: []};
+        if (fs.existsSync(path + 'scores.json')) data = JSON.parse(readFile(path + "scores.json"))
         let user;
         if (!data.users) {
             data = {users: []}

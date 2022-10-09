@@ -17,7 +17,10 @@ module.exports = {
             await interaction.reply({content: "Your server is not setup yet. Use </setup:907924863866507264> to setup the bot.", ephemeral: true})
             return;
         }
-        let data = JSON.parse(readFile(path + "settings.json"))
+        let data = {checkmark: true, visible: true};
+        if (fs.existsSync(path + "settings.json")) {
+            data = JSON.parse(readFile(path + "settings.json"))
+        }
         let visible = data.visible;
         if (!visible) {
             const embed = new EmbedBuilder()
@@ -34,6 +37,5 @@ module.exports = {
             embed.addData(embed, interaction)
             await interaction.reply({ embeds: [embed], ephemeral: true })
         }
-        
     }
 }

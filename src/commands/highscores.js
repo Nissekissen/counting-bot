@@ -18,7 +18,8 @@ module.exports = {
             if (fs.existsSync(path)) {
                 if (!fs.existsSync(path + "settings.json")) writeToFile(path + "settings.json", JSON.stringify({visible: true, checkmark: true}));
                 let count = readFile(path + "highscore.txt")
-                let visible = JSON.parse(readFile(path + "settings.json")).visible;
+                let visible = true;
+                if (!fs.existsSync(path + "settings.json")) visible = JSON.parse(readFile(path + "settings.json")).visible;
                 guild_data.push([parseInt(count), guild.id, visible]);
             }
         });
