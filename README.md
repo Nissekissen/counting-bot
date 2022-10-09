@@ -45,7 +45,7 @@ After you have edited the `config.json` file, you need to run the command `npm r
 
 * **REEEEEEEboi** - *All current work* - [Nissekissen](https://github.com/Nissekissen)
 
-See also the list of [contributors](https://github.com/Nissekissen/Equmenia-bot/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Nissekissen/counting-bot/contributors) who participated in this project.
 
 ## License
 
