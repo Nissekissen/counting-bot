@@ -8,7 +8,7 @@ module.exports = {
     execute(client) {
         logger.log('Bot started')
         client.user.setPresence({
-            activities: [{ name: `with numbers`, type: ActivityType.Playing }],
+            activities: [{ name: `counting reset, do /setup`, type: ActivityType.Playing }],
             status: 'online',
           });
     }
