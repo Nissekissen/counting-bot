@@ -1,7 +1,8 @@
 const { writeToFile, readFile } = require("../../utils/fileUtils");
 const { EmbedBuilder, PermissionsBitField, PermissionFlagsBits } = require('discord.js')
 const levelCard = require('../../utils/images/levelCard')
-const fs = require('fs')
+const fs = require('fs');
+const logger = require("../../utils/logger");
 
 module.exports = {
     name: 'Levelcard',
@@ -27,6 +28,7 @@ module.exports = {
     async execute(interaction, path) {
         const theme = interaction.options.get('theme');
         const color = interaction.options.get('color');
+        logger.log("test");
         let data = "{}"
         if (fs.existsSync(path + "scores.json")) {
             data = JSON.parse(readFile(path + "scores.json"))

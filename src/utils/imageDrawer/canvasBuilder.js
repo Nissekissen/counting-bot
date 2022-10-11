@@ -1,13 +1,14 @@
-const Canvas = require('@napi-rs/canvas');
+const { createCanvas, loadImage } = require('canvas');
 const { AttachmentBuilder } = require('discord.js');
 const { request } = require('undici');
+const logger = require('../logger');
 
 class CanvasBuilder {
     constructor(w, h, borderColor, backgroundColor) {
         this.w = w;
         this.h = h;
         this.backgroundColor = backgroundColor;
-        this.canvas = Canvas.createCanvas(w, h);
+        this.canvas = createCanvas(w, h);
         this.ctx = this.canvas.getContext('2d');
         if (backgroundColor) {
             this.ctx.fillStyle = backgroundColor;
@@ -19,13 +20,12 @@ class CanvasBuilder {
     }
 
     async addImage(URL, x, y, w, h, circle) {
-        const { body } = await request(URL);
-        const image = await Canvas.loadImage(await body.arrayBuffer());
+        const image = await loadImage(URL)
         if (circle) { //width and height must be the same for this to work
             this.ctx.beginPath();
-	        this.ctx.arc(x + w / 2, y + h / 2, w / 2, 0, Math.PI * 2, true);
-	        this.ctx.closePath();
-	        this.ctx.clip();
+            this.ctx.arc(x + w / 2, y + h / 2, w / 2, 0, Math.PI * 2, true);
+            this.ctx.closePath();
+            this.ctx.clip();
         }
         this.ctx.drawImage(image, x, y, w, h);
         
@@ -39,7 +39,7 @@ class CanvasBuilder {
     }
 
     async getCanvas() {
-        return new AttachmentBuilder(await this.canvas.encode('png'), { name: `level-image.png` });
+        return new AttachmentBuilder(this.canvas.createPNGStream(), { name: `level-image.png` });
     }
 }
 

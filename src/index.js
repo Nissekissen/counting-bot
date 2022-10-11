@@ -32,7 +32,7 @@ const loadEvents = () => {
 }
 
 //Part below is only if bot is using top.gg, comment out if it is not.
-
+/*
 const ap = AutoPoster(topgg_token, client);
 ap.on('posted', () => {
     logger.log('Posted stats on Top.gg!');
@@ -40,7 +40,7 @@ ap.on('posted', () => {
 ap.on('error', error => {
     logger.log('Error while posting stats on Top.gg: ' + error);
 })
-
+*/
 loadCommands()
 loadEvents()
 

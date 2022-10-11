@@ -1,12 +1,12 @@
 const { SlashCommandBuilder, EmbedBuilder, MessageAttachment, AttachmentBuilder } = require("discord.js");
 const { readFile, writeToFile } = require("../utils/fileUtils");
 const ProgressBar = require("../utils/imageDrawer/progressbar");
-const UserAvatar = require("../utils/imageDrawer/userAvatar");
 const images = require('images');
 const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
 const fs = require("fs");
 const levelCard = require("../utils/images/levelCard");
 const sort = require('../utils/sort');
+const logger = require("../utils/logger");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,6 +22,7 @@ module.exports = {
     usage: '/level @username',
     async execute(interaction) {
         const path = `./servers/${interaction.guildId}/`
+        logger.log("test")
         if (!fs.existsSync(path)) return await interaction.reply({ content: "This server isn't setup yet! Use /setuphelp for more info", ephemeral: true });
         let data = {users: []}
         if (fs.existsSync(path + "scores.json")) data = JSON.parse(readFile(path + "scores.json"))
@@ -45,6 +46,7 @@ module.exports = {
             data.users.push(user);
         }
         writeToFile(path + "scores.json", JSON.stringify(data));
+        //await interaction.deferReply();
         const userData = interaction.guild.members.cache.get(user.id).user
         const imageCanvas = levelCard.generate(user, userData, data, user.settings);
         await interaction.reply({files: [await imageCanvas]})

@@ -1,7 +1,7 @@
 const ProgressBar = require("../imageDrawer/progressbar");
-const UserAvatar = require("../imageDrawer/userAvatar");
 const images = require('images');
 const CanvasBuilder = require("../imageDrawer/canvasBuilder");
+const logger = require("../logger");
 
 module.exports = {
     async generate(user, userData, data, settings) {
@@ -32,8 +32,9 @@ module.exports = {
         canvas.drawText(100, 95, colors.text.par, 10, `Server rank: #${(data.users.indexOf(user)+1).toString()} of ${data.users.length.toString()}`);
         canvas.drawText(20, 133, colors.text.par, 10, (100 * (Math.pow(2, user.level-1) - 1)).toString())
         canvas.drawText(220, 133, colors.text.par, 10, (100 * (Math.pow(2, user.level) - 1)).toString())
-
         await canvas.addImage(userData.displayAvatarURL({ extension: "jpg" }), 20, 10, 64, 64, true);
+        logger.log("drew image");
         return canvas.getCanvas();
+        
     }
 }
