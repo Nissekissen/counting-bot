@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, MessageAttachment, AttachmentBuilder } = require("discord.js");
 const { readFile, writeToFile } = require("../utils/fileUtils");
 const ProgressBar = require("../utils/imageDrawer/progressbar");
-const images = require('images');
 const CanvasBuilder = require("../utils/imageDrawer/canvasBuilder");
 const fs = require("fs");
 const levelCard = require("../utils/images/levelCard");

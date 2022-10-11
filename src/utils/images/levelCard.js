@@ -1,5 +1,4 @@
 const ProgressBar = require("../imageDrawer/progressbar");
-const images = require('images');
 const CanvasBuilder = require("../imageDrawer/canvasBuilder");
 
 module.exports = {
