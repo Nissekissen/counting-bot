@@ -1,7 +1,6 @@
 const { createCanvas, loadImage, registerFont } = require('canvas');
 const { AttachmentBuilder } = require('discord.js');
 const { request } = require('undici');
-const logger = require('../logger');
 
 class CanvasBuilder {
     constructor(w, h, borderColor, backgroundColor) {

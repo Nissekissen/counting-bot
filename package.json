@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.30",
     "canvas": "^2.10.1",
     "discord.js": "^14.4.0",
     "images": "^3.2.4",
