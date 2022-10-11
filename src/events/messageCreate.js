@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { parse } = require("path");
 const { readFile, writeToFile } = require("../utils/fileUtils");
 const logger = require("../utils/logger");
 const levelUp = require('./levelUp')
@@ -12,7 +11,7 @@ module.exports = {
         if (!fs.existsSync(path)) return;
         if (interaction.content.startsWith(";")) { return await interaction.reply({ content: "I now work with slash commands! Do /help for more information!", ephemeral: true }) }
         if (interaction.channelId != readFile(path + "/channel.txt")) return;
-        const checkmark = true;
+        let checkmark = true;
         if (fs.existsSync(path + "/settings.json")) {
             checkmark = JSON.parse(readFile(path + "/settings.json")).checkmark
         }

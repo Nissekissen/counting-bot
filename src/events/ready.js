@@ -1,4 +1,4 @@
-const { ActivityType } = require("discord.js")
+const { ActivityType, EmbedBuilder } = require("discord.js")
 const fs = require("fs");
 const logger = require("../utils/logger");
 
