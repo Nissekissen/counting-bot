@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, loadImage, registerFont } = require('canvas');
 const { AttachmentBuilder } = require('discord.js');
 const { request } = require('undici');
 const logger = require('../logger');
@@ -32,7 +32,8 @@ class CanvasBuilder {
     }
     
     drawText(x, y, color, size, text) {
-        this.ctx.font = size.toString() + 'px Verdana';
+        registerFont('./fonts/verdana-bold.ttf', { family: 'Verdana bold' })
+        this.ctx.font = size.toString() + 'px "Verdana bold"';
         this.ctx.fillStyle = color;
 
         this.ctx.fillText(text, x, y);

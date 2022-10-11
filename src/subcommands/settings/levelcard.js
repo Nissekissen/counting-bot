@@ -68,6 +68,7 @@ module.exports = {
                 } else {
                     description = description + `\nInvalid color code. Hex code needed.`
                 }
+                console.log("test")
             }
             user.settings = settings;
             users[userIndex] = user;

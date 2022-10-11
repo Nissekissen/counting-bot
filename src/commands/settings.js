@@ -15,7 +15,7 @@ module.exports = {
         const path = `./servers/${interaction.guildId}/`;
         const subcommand = require(`../subcommands/${this.data.name}/${interaction.options.getSubcommand()}`);
         const permissions = subcommand.permissions;
-        if (permissions.length > 0) {
+        if (permissions != undefined) {
             if (!interaction.member.permissions.has(permissions)) {
                 return await interaction.reply({ content: 'You do not have permission to execute this subcommand.', ephemeral: true })
             }
